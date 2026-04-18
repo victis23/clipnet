@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 // MARK: - Role
-enum AppRole: String, CaseIterable {
+enum AppRole: String, CaseIterable, RawRepresentable {
     case brand   = "Brand"
     case clipper = "Clipper"
 }

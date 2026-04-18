@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct RoleSelectView: View {
-//    @EnvironmentObject var roleSelectViewModel: RoleSelectViewModel
-
     var body: some View {
         ZStack {
             Color.cnNavy.ignoresSafeArea()
