@@ -1,24 +1,19 @@
-//
-//  ContentView.swift
-//  ClipNet
-//
-//  Created by Scott Leonard on 4/17/26.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
-}
+    @EnvironmentObject var vm: AppViewModel
 
-#Preview {
-    ContentView()
+    var body: some View {
+        Group {
+            switch vm.selectedRole {
+            case .none:
+                RoleSelectView()
+            case .brand:
+                BrandTabView()
+            case .clipper:
+                ClipperTabView()
+            }
+        }
+        .animation(.easeInOut(duration: 0.3), value: vm.selectedRole)
+    }
 }
