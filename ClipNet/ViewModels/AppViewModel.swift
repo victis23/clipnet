@@ -5,7 +5,6 @@ import Combine
 @MainActor
 final class AppViewModel: ObservableObject {
     // MARK: - State
-    @Published var selectedRole: AppRole? = nil
     @Published var campaigns: [Campaign] = []
     @Published var myClips: [ClipSubmission] = []
     @Published var isShowingCreateCampaign = false

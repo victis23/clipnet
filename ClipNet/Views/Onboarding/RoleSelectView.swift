@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RoleSelectView: View {
-    @EnvironmentObject var vm: AppViewModel
+    @EnvironmentObject var vm: RoleSelectViewModel
 
     var body: some View {
         ZStack {
@@ -57,7 +57,7 @@ struct RoleSelectView: View {
 
 // MARK: - Role Card
 private struct RoleCard: View {
-    @EnvironmentObject var vm: AppViewModel
+    @EnvironmentObject var vm: RoleSelectViewModel
 
     let role: AppRole
     let icon: String

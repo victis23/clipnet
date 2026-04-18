@@ -1,19 +1,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var vm: AppViewModel
+    @EnvironmentObject var roleSelectVM: RoleSelectViewModel
 
     var body: some View {
         Group {
-            switch vm.selectedRole {
+            switch roleSelectVM.selectedRole {
             case .none:
-                RoleSelectView()
+				RoleSelectView()
             case .brand:
-                BrandTabView()
+                BrandTabView().environmentObject(AppViewModel())
             case .clipper:
-                ClipperTabView()
+                ClipperTabView().environmentObject(AppViewModel())
             }
         }
-        .animation(.easeInOut(duration: 0.3), value: vm.selectedRole)
+        .animation(.easeInOut(duration: 0.3), value: roleSelectVM.selectedRole)
     }
 }

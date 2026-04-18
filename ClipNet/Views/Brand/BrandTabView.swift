@@ -87,7 +87,7 @@ private struct AnalyticsRow: View {
 
 // MARK: - Settings (placeholder)
 private struct BrandSettingsView: View {
-    @EnvironmentObject var vm: AppViewModel
+    @EnvironmentObject var vm: RoleSelectViewModel
 
     var body: some View {
         NavigationStack {
