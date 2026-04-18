@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ClipperTabView: View {
-    @EnvironmentObject var vm: AppViewModel
+//    @EnvironmentObject var campaignViewModel: CampaignViewModel
     @State private var selectedTab = 0
 
     var body: some View {
@@ -36,7 +36,7 @@ struct ClipperTabView: View {
 
 // MARK: - Settings (placeholder)
 private struct ClipperSettingsView: View {
-    @EnvironmentObject var vm: RoleSelectViewModel
+    @EnvironmentObject var roleSelectViewModel: RoleSelectViewModel
 
     var body: some View {
         NavigationStack {
@@ -57,7 +57,7 @@ private struct ClipperSettingsView: View {
                 }
                 Section {
                     Button(role: .destructive) {
-                        vm.selectedRole = nil
+						roleSelectViewModel.selectedRole = nil
                     } label: {
                         Label("Switch Role", systemImage: "arrow.left.arrow.right")
                     }

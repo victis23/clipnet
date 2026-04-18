@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct BrandTabView: View {
-    @EnvironmentObject var vm: AppViewModel
+    @EnvironmentObject var campaignViewModel: CampaignViewModel
     @State private var selectedTab = 0
 
     var body: some View {
@@ -25,7 +25,7 @@ struct BrandTabView: View {
                 .tag(2)
         }
         .tint(.cnAmber)
-        .sheet(isPresented: $vm.isShowingCreateCampaign) {
+        .sheet(isPresented: $campaignViewModel.isShowingCreateCampaign) {
             CreateCampaignView()
         }
     }
@@ -33,24 +33,24 @@ struct BrandTabView: View {
 
 // MARK: - Analytics (placeholder)
 private struct BrandAnalyticsView: View {
-    @EnvironmentObject var vm: AppViewModel
+    @EnvironmentObject var campaignViewModel: CampaignViewModel
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
-                        StatCard(label: "Total Views", value: vm.totalViews.shortFormatted, accentColor: .cnTeal)
-                        StatCard(label: "Paid Out", value: vm.totalPaidOut.shortCurrency, accentColor: .cnAmber)
-                        StatCard(label: "Campaigns", value: "\(vm.campaigns.count)", accentColor: .cnPurple)
-                        StatCard(label: "Active", value: "\(vm.activeCampaigns)", accentColor: .cnSuccess)
+                        StatCard(label: "Total Views", value: campaignViewModel.totalViews.shortFormatted, accentColor: .cnTeal)
+                        StatCard(label: "Paid Out", value: campaignViewModel.totalPaidOut.shortCurrency, accentColor: .cnAmber)
+                        StatCard(label: "Campaigns", value: "\(campaignViewModel.campaigns.count)", accentColor: .cnPurple)
+                        StatCard(label: "Active", value: "\(campaignViewModel.activeCampaigns)", accentColor: .cnSuccess)
                     }
                     .padding(.horizontal, 20)
 
                     VStack(alignment: .leading, spacing: 12) {
                         SectionHeader(title: "Top Campaigns by Views")
                             .padding(.horizontal, 20)
-                        ForEach(vm.campaigns.sorted { $0.totalViews > $1.totalViews }.prefix(3)) { c in
+                        ForEach(campaignViewModel.campaigns.sorted { $0.totalViews > $1.totalViews }.prefix(3)) { c in
                             AnalyticsRow(campaign: c)
                                 .padding(.horizontal, 20)
                         }
@@ -87,7 +87,7 @@ private struct AnalyticsRow: View {
 
 // MARK: - Settings (placeholder)
 private struct BrandSettingsView: View {
-    @EnvironmentObject var vm: RoleSelectViewModel
+    @EnvironmentObject var roleSelectViewModel: RoleSelectViewModel
 
     var body: some View {
         NavigationStack {
@@ -104,7 +104,7 @@ private struct BrandSettingsView: View {
                 }
                 Section {
                     Button(role: .destructive) {
-                        vm.selectedRole = nil
+						roleSelectViewModel.selectedRole = nil
                     } label: {
                         Label("Switch Role", systemImage: "arrow.left.arrow.right")
                     }

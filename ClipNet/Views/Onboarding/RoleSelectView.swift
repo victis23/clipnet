@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RoleSelectView: View {
-    @EnvironmentObject var vm: RoleSelectViewModel
+//    @EnvironmentObject var roleSelectViewModel: RoleSelectViewModel
 
     var body: some View {
         ZStack {
@@ -57,7 +57,7 @@ struct RoleSelectView: View {
 
 // MARK: - Role Card
 private struct RoleCard: View {
-    @EnvironmentObject var vm: RoleSelectViewModel
+    @EnvironmentObject var roleSelectViewModel: RoleSelectViewModel
 
     let role: AppRole
     let icon: String
@@ -70,7 +70,7 @@ private struct RoleCard: View {
     var body: some View {
         Button {
             withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-                vm.selectedRole = role
+				roleSelectViewModel.selectedRole = role
             }
         } label: {
             HStack(spacing: 18) {

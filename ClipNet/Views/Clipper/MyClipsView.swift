@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MyClipsView: View {
-    @EnvironmentObject var vm: AppViewModel
+    @EnvironmentObject var clipperViewModel: ClipperViewModel
     @State private var isShowingSubmit = false
 
     var body: some View {
@@ -13,7 +13,7 @@ struct MyClipsView: View {
                         columns: [GridItem(.flexible()), GridItem(.flexible())],
                         spacing: 10
                     ) {
-                        StatCard(label: "Total Clips", value: "\(vm.myClips.count)", accentColor: .cnTeal)
+                        StatCard(label: "Total Clips", value: "\(clipperViewModel.myClips.count)", accentColor: .cnTeal)
                         StatCard(label: "Total Views", value: totalClipViews.shortFormatted, accentColor: .cnAmber)
                     }
                     .padding(.horizontal, 20)
@@ -23,7 +23,7 @@ struct MyClipsView: View {
                         SectionHeader(title: "Recent Submissions")
                             .padding(.horizontal, 20)
 
-                        if vm.myClips.isEmpty {
+                        if clipperViewModel.myClips.isEmpty {
                             EmptyStateView(
                                 systemImage: "scissors",
                                 title: "No clips yet",
@@ -31,7 +31,7 @@ struct MyClipsView: View {
                             )
                         } else {
                             LazyVStack(spacing: 10) {
-                                ForEach(vm.myClips) { clip in
+                                ForEach(clipperViewModel.myClips) { clip in
                                     ClipRow(clip: clip)
                                         .padding(.horizontal, 20)
                                 }
@@ -63,7 +63,7 @@ struct MyClipsView: View {
     }
 
     private var totalClipViews: Int {
-        vm.myClips.reduce(0) { $0 + $1.views }
+		clipperViewModel.myClips.reduce(0) { $0 + $1.views }
     }
 }
 
@@ -117,7 +117,7 @@ private struct ClipRow: View {
 // MARK: - Submit Clip Sheet (minimal)
 private struct SubmitClipView: View {
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var vm: AppViewModel
+    @EnvironmentObject var campaignViewModel: CampaignViewModel
 
     @State private var clipURL = ""
     @State private var selectedCampaignId: UUID? = nil
@@ -132,7 +132,7 @@ private struct SubmitClipView: View {
                         .font(.cnLabel())
                         .foregroundColor(.cnMuted)
 
-                    ForEach(vm.campaigns.filter { $0.status == .active }) { c in
+                    ForEach(campaignViewModel.campaigns.filter { $0.status == .active }) { c in
                         Button {
                             selectedCampaignId = c.id
                         } label: {

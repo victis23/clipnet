@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct ClipperEarningsView: View {
-    @EnvironmentObject var vm: AppViewModel
+    @EnvironmentObject var clipperViewModel: ClipperViewModel
+	@EnvironmentObject var campaignViewModel: CampaignViewModel
 
     var body: some View {
         NavigationStack {
@@ -29,7 +30,7 @@ struct ClipperEarningsView: View {
                     .font(.cnLabel())
                     .foregroundColor(.cnMuted)
 
-                Text(vm.totalEarned.currency)
+                Text(clipperViewModel.totalEarned.currency)
                     .font(.system(size: 44, weight: .black, design: .monospaced))
                     .foregroundColor(.cnAmber)
 
@@ -37,7 +38,7 @@ struct ClipperEarningsView: View {
                     Circle()
                         .fill(Color.cnAmber)
                         .frame(width: 6, height: 6)
-                    Text("\(vm.myClips.filter { $0.status == .paid }.count) clips paid out")
+                    Text("\(clipperViewModel.myClips.filter { $0.status == .paid }.count) clips paid out")
                         .font(.cnCaption())
                         .foregroundColor(.cnMuted)
                 }
@@ -52,7 +53,7 @@ struct ClipperEarningsView: View {
                     Text("PENDING PAYOUT")
                         .font(.cnLabel())
                         .foregroundColor(.cnMuted)
-                    Text(vm.pendingEarnings.currency)
+                    Text(clipperViewModel.pendingEarnings.currency)
                         .font(.system(size: 20, weight: .bold, design: .monospaced))
                         .foregroundColor(.cnAmber)
                 }
@@ -63,7 +64,7 @@ struct ClipperEarningsView: View {
                     Text("OPEN CAMPAIGNS")
                         .font(.cnLabel())
                         .foregroundColor(.cnMuted)
-                    Text("\(vm.openCampaigns)")
+                    Text("\(campaignViewModel.activeCampaigns)")
                         .font(.system(size: 20, weight: .bold, design: .monospaced))
                         .foregroundColor(.cnTeal)
                 }
@@ -96,7 +97,7 @@ struct ClipperEarningsView: View {
 
     private var platformBreakdown: [(Platform, Double)] {
         var totals: [Platform: Double] = [:]
-        for clip in vm.myClips {
+        for clip in clipperViewModel.myClips {
             totals[clip.platform, default: 0] += clip.earnedAmount
         }
         return Platform.allCases
@@ -114,7 +115,7 @@ struct ClipperEarningsView: View {
                 .padding(.horizontal, 20)
 
             LazyVStack(spacing: 10) {
-                ForEach(vm.myClips) { clip in
+                ForEach(clipperViewModel.myClips) { clip in
                     EarningsClipRow(clip: clip)
                         .padding(.horizontal, 20)
                 }

@@ -1,14 +1,14 @@
 import SwiftUI
 
 struct BrowseCampaignsView: View {
-    @EnvironmentObject var vm: AppViewModel
+    @EnvironmentObject var campaignViewModel: CampaignViewModel
 
     @State private var platformFilter: Platform? = nil
     @State private var selectedCampaign: Campaign? = nil
     @State private var searchText = ""
 
     private var filteredCampaigns: [Campaign] {
-        vm.campaigns
+		campaignViewModel.campaigns
             .filter { $0.status == .active }
             .filter { c in
                 if let filter = platformFilter { return c.platforms.contains(filter) }
@@ -60,7 +60,7 @@ struct BrowseCampaignsView: View {
             .navigationBarTitleDisplayMode(.large)
             .searchable(text: $searchText, prompt: "Search creators...")
             .navigationDestination(item: $selectedCampaign) { c in
-                CampaignApplyView(campaign: c)
+				CampaignApplyView(campaign: c)
             }
         }
     }

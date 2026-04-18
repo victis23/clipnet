@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CreateCampaignView: View {
-    @EnvironmentObject var vm: AppViewModel
+    @EnvironmentObject var campaignViewModel: CampaignViewModel
     @Environment(\.dismiss) private var dismiss
 
     @State private var form = NewCampaignForm()
@@ -127,7 +127,7 @@ struct CreateCampaignView: View {
 
                     // Launch button
                     AmberButton(title: "Launch Campaign") {
-                        vm.createCampaign(from: form)
+						campaignViewModel.createCampaign(from: form)
                     }
                     .disabled(!form.isValid)
                     .opacity(form.isValid ? 1.0 : 0.5)

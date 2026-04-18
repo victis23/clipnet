@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct BrandDashboardView: View {
-    @EnvironmentObject var vm: AppViewModel
+    @EnvironmentObject var campaignViewModel: CampaignViewModel
     @State private var selectedCampaign: Campaign? = nil
 
     var body: some View {
@@ -20,7 +20,7 @@ struct BrandDashboardView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        vm.isShowingCreateCampaign = true
+						campaignViewModel.isShowingCreateCampaign = true
                     } label: {
                         Label("New Campaign", systemImage: "plus")
                             .labelStyle(.iconOnly)
@@ -41,9 +41,9 @@ struct BrandDashboardView: View {
             columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())],
             spacing: 10
         ) {
-            StatCard(label: "Views", value: vm.totalViews.shortFormatted, accentColor: .cnTeal)
-            StatCard(label: "Paid Out", value: vm.totalPaidOut.shortCurrency, accentColor: .cnAmber)
-            StatCard(label: "Active", value: "\(vm.activeCampaigns)", accentColor: .cnSuccess)
+            StatCard(label: "Views", value: campaignViewModel.totalViews.shortFormatted, accentColor: .cnTeal)
+            StatCard(label: "Paid Out", value: campaignViewModel.totalPaidOut.shortCurrency, accentColor: .cnAmber)
+            StatCard(label: "Active", value: "\(campaignViewModel.activeCampaigns)", accentColor: .cnSuccess)
         }
         .padding(.horizontal, 20)
     }
@@ -55,7 +55,7 @@ struct BrandDashboardView: View {
                 SectionHeader(title: "All Campaigns")
                 Spacer()
                 Button {
-                    vm.isShowingCreateCampaign = true
+					campaignViewModel.isShowingCreateCampaign = true
                 } label: {
                     HStack(spacing: 4) {
                         Image(systemName: "plus")
@@ -71,7 +71,7 @@ struct BrandDashboardView: View {
             }
             .padding(.horizontal, 20)
 
-            if vm.campaigns.isEmpty {
+            if campaignViewModel.campaigns.isEmpty {
                 EmptyStateView(
                     systemImage: "bolt.slash",
                     title: "No campaigns yet",
@@ -79,7 +79,7 @@ struct BrandDashboardView: View {
                 )
             } else {
                 LazyVStack(spacing: 10) {
-                    ForEach(vm.campaigns) { campaign in
+                    ForEach(campaignViewModel.campaigns) { campaign in
                         CampaignRowView(campaign: campaign)
                             .padding(.horizontal, 20)
                             .contentShape(Rectangle())
