@@ -5,34 +5,32 @@ struct BrandDashboardView: View {
     @State private var selectedCampaign: Campaign? = nil
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 24) {
-                    statsSection
-                    campaignListSection
-                }
-                .padding(.top, 16)
-                .padding(.bottom, 32)
-            }
-            .background(Color.cnSurface.ignoresSafeArea())
-            .navigationTitle("Campaigns")
-            .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-						campaignViewModel.isShowingCreateCampaign = true
-                    } label: {
-                        Label("New Campaign", systemImage: "plus")
-                            .labelStyle(.iconOnly)
-                            .font(.system(size: 18, weight: .semibold))
-                            .foregroundColor(.cnAmber)
-                    }
-                }
-            }
-            .navigationDestination(item: $selectedCampaign) { campaign in
-                CampaignDetailView(campaign: campaign)
-            }
-        }
+		ScrollView {
+			VStack(spacing: 24) {
+				statsSection
+				campaignListSection
+			}
+			.padding(.top, 16)
+			.padding(.bottom, 32)
+		}
+		.background(Color.cnSurface.ignoresSafeArea())
+		.navigationTitle("Campaigns")
+		.navigationBarTitleDisplayMode(.large)
+		.toolbar {
+			ToolbarItem(placement: .navigationBarTrailing) {
+				Button {
+					campaignViewModel.isShowingCreateCampaign = true
+				} label: {
+					Label("New Campaign", systemImage: "plus")
+						.labelStyle(.iconOnly)
+						.font(.system(size: 18, weight: .semibold))
+						.foregroundColor(.cnAmber)
+				}
+			}
+		}
+		.navigationDestination(item: $selectedCampaign) { campaign in
+			CampaignDetailView(campaign: campaign)
+		}
     }
 
     // MARK: - Stats Section
