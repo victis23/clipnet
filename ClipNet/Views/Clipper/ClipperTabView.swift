@@ -94,11 +94,11 @@ private struct LinkedAccountRow: View {
     }
 }
 
-struct ClipperTabView_Previews: PreviewProvider {
-	static var previews: some View {
-		ClipperTabView()
-			.environmentObject(CampaignViewModel())
-			.environmentObject(RoleSelectViewModel())
-			.environmentObject(ClipperViewModel())
-	}
-}
+//struct ClipperTabView_Previews: PreviewProvider {
+//	static var previews: some View {
+//		ClipperTabView()
+//			.environmentObject(CampaignViewModel())
+//			.environmentObject(RoleSelectViewModel())
+//			.environmentObject(ClipperViewModel())
+//	}
+//}

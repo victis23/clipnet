@@ -61,62 +61,73 @@ struct RoleSelectView: View {
 
 // MARK: - Role Card
 private struct RoleCard: View {
-    @EnvironmentObject var roleSelectViewModel: RoleSelectViewModel
-
-    let role: AppRole
-    let icon: String
-    let title: String
-    let subtitle: String
-    let accentColor: Color
-
-    @State private var isPressed = false
-
-    var body: some View {
-        Button {
-            withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+	@EnvironmentObject var roleSelectViewModel: RoleSelectViewModel
+	
+	let role: AppRole
+	let icon: String
+	let title: String
+	let subtitle: String
+	let accentColor: Color
+	
+	@State private var isPressed = false
+	
+	var body: some View {
+		Button {
+			withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
 				roleSelectViewModel.selectedRole = role
-            }
-        } label: {
-            HStack(spacing: 18) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(accentColor.opacity(0.15))
-                        .frame(width: 52, height: 52)
-                    Image(systemName: icon)
-                        .font(.system(size: 22, weight: .semibold))
-                        .foregroundColor(accentColor)
-                }
+			}
+		} label: {
+			HStack {
+				ZStack {
+					RoundedRectangle(cornerRadius: 12)
+						.fill(accentColor.opacity(0.15))
+						.frame(width: 90, height: 90)
+					Image(systemName: icon)
+						.font(.system(size: 22, weight: .semibold))
+						.foregroundColor(accentColor)
+				}
+				
+				Spacer()
+				
+				VStack(alignment: .leading, spacing: 4) {
+					Text(title)
+						.font(.cnSubhead().scaled(by: 1.5).weight(.heavy))
+						.foregroundColor(.white)
+					Text(subtitle)
+						.font(.cnCaption()).italic()
+						.foregroundColor(.cnMuted)
+						.fixedSize(horizontal: false, vertical: true)
+						.multilineTextAlignment(.leading)
+				}
+				
+				Spacer()
+				
+				Image(systemName: "chevron.right")
+					.font(.system(size: 13, weight: .semibold))
+					.foregroundColor(accentColor)
+			}
+			.padding(20)
+			.frame(maxWidth: .infinity, maxHeight: .infinity)
+			.background(Color.white.opacity(0.05))
+		}
+		.frame(height: 275)
+		.scaleEffect(isPressed ? 0.97 : 1.0)
+		.animation(.easeInOut(duration: 0.12), value: isPressed)
+		.simultaneousGesture(
+			DragGesture(minimumDistance: 0)
+				.onChanged { _ in isPressed = true }
+				.onEnded   { _ in isPressed = false }
+		)
+		.clipShape(RoundedRectangle(cornerRadius: 16))
+		.overlay(
+			RoundedRectangle(cornerRadius: 16)
+				.stroke(accentColor.opacity(0.3), lineWidth: 1)
+		)
+	}
+}
 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(title)
-                        .font(.cnSubhead())
-                        .foregroundColor(.white)
-                    Text(subtitle)
-                        .font(.cnCaption())
-                        .foregroundColor(.cnMuted)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-
-                Spacer()
-
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundColor(accentColor)
-            }
-            .padding(20)
-            .background(Color.white.opacity(0.05))
-            .clipShape(RoundedRectangle(cornerRadius: 16))
-            .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(accentColor.opacity(0.3), lineWidth: 1)
-            )
-        }
-        .scaleEffect(isPressed ? 0.97 : 1.0)
-        .animation(.easeInOut(duration: 0.12), value: isPressed)
-        .simultaneousGesture(
-            DragGesture(minimumDistance: 0)
-                .onChanged { _ in isPressed = true }
-                .onEnded   { _ in isPressed = false }
-        )
-    }
+struct RoleCard_preview: PreviewProvider {
+	static var previews: some View {
+		RoleSelectView()
+	}
 }
