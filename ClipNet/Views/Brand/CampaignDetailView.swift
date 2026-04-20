@@ -2,6 +2,8 @@ import SwiftUI
 
 struct CampaignDetailView: View {
     let campaign: Campaign
+	var endAction: () -> Void
+	@Environment(\.dismiss) var dismiss
 
     var body: some View {
         ScrollView {
@@ -165,7 +167,10 @@ struct CampaignDetailView: View {
     private var actionsCard: some View {
         VStack(spacing: 10) {
             NavyButton(title: "Pause Campaign") {}
-            Button("End Campaign") {}
+			Button("End Campaign") { 
+				endAction()
+				dismiss()
+			}
                 .font(.cnBody())
                 .foregroundColor(.cnDanger)
                 .frame(maxWidth: .infinity)

@@ -29,7 +29,14 @@ struct BrandDashboardView: View {
 			}
 		}
 		.navigationDestination(item: $selectedCampaign) { campaign in
-			CampaignDetailView(campaign: campaign)
+			CampaignDetailView(campaign: campaign, endAction: {
+				if let index = campaignViewModel.campaigns.firstIndex(where: {
+					$0 == campaign
+				}) {
+					//FIXME: Remember this isn't be persisted anywhere. Add persistence once we fully implement backend
+					campaignViewModel.campaigns[index].status = .ended
+				}
+			})
 		}
     }
 
