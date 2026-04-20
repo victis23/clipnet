@@ -52,20 +52,20 @@ struct BrandDashboardView: View {
             HStack {
                 SectionHeader(title: "All Campaigns")
                 Spacer()
-                Button {
-					campaignViewModel.isShowingCreateCampaign = true
-                } label: {
-                    HStack(spacing: 4) {
-                        Image(systemName: "plus")
-                        Text("New")
-                    }
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundColor(.cnNavy)
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 7)
-                    .background(Color.cnAmber)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                }
+//                Button {
+//					campaignViewModel.isShowingCreateCampaign = true
+//                } label: {
+//                    HStack(spacing: 4) {
+//                        Image(systemName: "plus")
+//                        Text("New")
+//                    }
+//                    .font(.system(size: 13, weight: .semibold))
+//                    .foregroundColor(.cnNavy)
+//                    .padding(.horizontal, 14)
+//                    .padding(.vertical, 7)
+//                    .background(Color.cnAmber)
+//                    .clipShape(RoundedRectangle(cornerRadius: 8))
+//                }
             }
             .padding(.horizontal, 20)
 

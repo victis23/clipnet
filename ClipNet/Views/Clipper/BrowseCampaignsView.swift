@@ -21,48 +21,46 @@ struct BrowseCampaignsView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                // Filter bar
-                filterBar
-                    .padding(.top, 8)
-                    .padding(.bottom, 12)
-                    .padding(.horizontal, 20)
+		VStack(spacing: 0) {
+			// Filter bar
+			filterBar
+				.padding(.top, 8)
+				.padding(.bottom, 12)
+				.padding(.horizontal, 20)
 
-                // Campaign list
-                if filteredCampaigns.isEmpty {
-                    Spacer()
-                    EmptyStateView(
-                        systemImage: "magnifyingglass",
-                        title: "No campaigns found",
-                        subtitle: "Try adjusting your platform filter."
-                    )
-                    Spacer()
-                } else {
-                    ScrollView {
-                        LazyVStack(spacing: 12) {
-                            ForEach(filteredCampaigns) { campaign in
-                                CampaignCard(campaign: campaign)
-                                    .padding(.horizontal, 20)
-                                    .contentShape(Rectangle())
-                                    .onTapGesture {
-                                        selectedCampaign = campaign
-                                    }
-                            }
-                        }
-                        .padding(.bottom, 32)
-                        .padding(.top, 4)
-                    }
-                }
-            }
-            .background(Color.cnSurface.ignoresSafeArea())
-            .navigationTitle("Browse")
-            .navigationBarTitleDisplayMode(.large)
-            .searchable(text: $searchText, prompt: "Search creators...")
-            .navigationDestination(item: $selectedCampaign) { c in
-				CampaignApplyView(campaign: c)
-            }
-        }
+			// Campaign list
+			if filteredCampaigns.isEmpty {
+				Spacer()
+				EmptyStateView(
+					systemImage: "magnifyingglass",
+					title: "No campaigns found",
+					subtitle: "Try adjusting your platform filter."
+				)
+				Spacer()
+			} else {
+				ScrollView {
+					LazyVStack(spacing: 12) {
+						ForEach(filteredCampaigns) { campaign in
+							CampaignCard(campaign: campaign)
+								.padding(.horizontal, 20)
+								.contentShape(Rectangle())
+								.onTapGesture {
+									selectedCampaign = campaign
+								}
+						}
+					}
+					.padding(.bottom, 32)
+					.padding(.top, 4)
+				}
+			}
+		}
+		.background(Color.cnSurface.ignoresSafeArea())
+		.navigationTitle("Browse")
+		.navigationBarTitleDisplayMode(.large)
+		.searchable(text: $searchText, prompt: "Search creators...")
+		.navigationDestination(item: $selectedCampaign) { c in
+			CampaignApplyView(campaign: c)
+		}
     }
 
     // MARK: - Filter Bar

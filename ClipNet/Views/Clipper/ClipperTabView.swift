@@ -1,34 +1,41 @@
 import SwiftUI
 
 struct ClipperTabView: View {
-//    @EnvironmentObject var campaignViewModel: CampaignViewModel
     @State private var selectedTab = 0
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            BrowseCampaignsView()
-                .tabItem {
-                    Label("Browse", systemImage: "magnifyingglass")
-                }
-                .tag(0)
+			NavigationStack {
+				BrowseCampaignsView()
+			}
+			.tabItem {
+				Label("Browse", systemImage: "magnifyingglass")
+			}
+			.tag(0)
+			
+			NavigationStack {
+				MyClipsView()
+			}
+			.tabItem {
+				Label("My Clips", systemImage: "scissors")
+			}
+			.tag(1)
+			
+			NavigationStack {
+				ClipperEarningsView()
+			}
+			.tabItem {
+				Label("Earnings", systemImage: "dollarsign.circle.fill")
+			}
+			.tag(2)
 
-            MyClipsView()
-                .tabItem {
-                    Label("My Clips", systemImage: "scissors")
-                }
-                .tag(1)
-
-            ClipperEarningsView()
-                .tabItem {
-                    Label("Earnings", systemImage: "dollarsign.circle.fill")
-                }
-                .tag(2)
-
-            ClipperSettingsView()
-                .tabItem {
-                    Label("Account", systemImage: "person.circle.fill")
-                }
-                .tag(3)
+			NavigationStack {
+				ClipperSettingsView()
+			}
+			.tabItem {
+				Label("Account", systemImage: "person.circle.fill")
+			}
+			.tag(3)
         }
         .tint(.cnTeal)
     }
@@ -39,33 +46,31 @@ private struct ClipperSettingsView: View {
     @EnvironmentObject var roleSelectViewModel: RoleSelectViewModel
 
     var body: some View {
-        NavigationStack {
-            List {
-                Section("Connected Accounts") {
-                    LinkedAccountRow(platform: .tiktok, isLinked: true)
-                    LinkedAccountRow(platform: .instagram, isLinked: false)
-                    LinkedAccountRow(platform: .youtube, isLinked: true)
-                    LinkedAccountRow(platform: .x, isLinked: false)
-                }
-                Section("Payout") {
-                    Label("Payout Method", systemImage: "dollarsign.circle")
-                    Label("USDT Wallet", systemImage: "bitcoinsign.circle")
-                    Label("Payment History", systemImage: "clock")
-                }
-                Section("FTC") {
-                    Label("Disclosure Settings", systemImage: "shield.lefthalf.filled")
-                }
-                Section {
-                    Button(role: .destructive) {
-						roleSelectViewModel.selectedRole = nil
-                    } label: {
-                        Label("Switch Role", systemImage: "arrow.left.arrow.right")
-                    }
-                }
-            }
-            .navigationTitle("Account")
-            .navigationBarTitleDisplayMode(.large)
-        }
+		List {
+			Section("Connected Accounts") {
+				LinkedAccountRow(platform: .tiktok, isLinked: true)
+				LinkedAccountRow(platform: .instagram, isLinked: false)
+				LinkedAccountRow(platform: .youtube, isLinked: true)
+				LinkedAccountRow(platform: .x, isLinked: false)
+			}
+			Section("Payout") {
+				Label("Payout Method", systemImage: "dollarsign.circle")
+				Label("USDT Wallet", systemImage: "bitcoinsign.circle")
+				Label("Payment History", systemImage: "clock")
+			}
+			Section("FTC") {
+				Label("Disclosure Settings", systemImage: "shield.lefthalf.filled")
+			}
+			Section {
+				Button(role: .destructive) {
+					roleSelectViewModel.selectedRole = nil
+				} label: {
+					Label("Switch Role", systemImage: "arrow.left.arrow.right")
+				}
+			}
+		}
+		.navigationTitle("Account")
+		.navigationBarTitleDisplayMode(.large)
     }
 }
 
@@ -87,4 +92,13 @@ private struct LinkedAccountRow: View {
             }
         }
     }
+}
+
+struct ClipperTabView_Previews: PreviewProvider {
+	static var previews: some View {
+		ClipperTabView()
+			.environmentObject(CampaignViewModel())
+			.environmentObject(RoleSelectViewModel())
+			.environmentObject(ClipperViewModel())
+	}
 }

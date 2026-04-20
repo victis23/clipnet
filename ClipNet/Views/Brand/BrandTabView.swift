@@ -115,5 +115,5 @@ private struct BrandSettingsView: View {
 		}
 		.navigationTitle("Settings")
 		.navigationBarTitleDisplayMode(.large)
-}
+	}
 }

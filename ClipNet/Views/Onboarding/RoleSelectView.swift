@@ -7,14 +7,20 @@ struct RoleSelectView: View {
 
             VStack(spacing: 0) {
                 // Header
-                VStack(spacing: 12) {
-                    Text("ClipNet")
-                        .font(.system(size: 38, weight: .black))
-                        .foregroundColor(.white)
-
+                VStack(spacing: 2) {
+					HStack(spacing: 0) {
+						Text("Clip")
+							.foregroundColor(.white)
+						Text("PAY")
+							.foregroundColor(.yellow)
+					}
+					.font(.system(size: 38, weight: .black))
+					
                     Text("Growth OS for Creators")
                         .font(.cnBody())
                         .foregroundColor(.cnMuted)
+						.italic()
+						.fontWeight(.light)
                 }
                 .padding(.top, 72)
 
@@ -42,7 +48,7 @@ struct RoleSelectView: View {
 
                 Spacer()
 
-                Text("By continuing you agree to ClipNet's Terms of Service.")
+                Text("By continuing you agree to ClipPay's Terms of Service.")
                     .font(.cnCaption())
                     .foregroundColor(.cnMuted)
                     .multilineTextAlignment(.center)

@@ -5,61 +5,59 @@ struct MyClipsView: View {
     @State private var isShowingSubmit = false
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 20) {
-                    // Quick stats
-                    LazyVGrid(
-                        columns: [GridItem(.flexible()), GridItem(.flexible())],
-                        spacing: 10
-                    ) {
-                        StatCard(label: "Total Clips", value: "\(clipperViewModel.myClips.count)", accentColor: .cnTeal)
-                        StatCard(label: "Total Views", value: totalClipViews.shortFormatted, accentColor: .cnAmber)
-                    }
-                    .padding(.horizontal, 20)
+		ScrollView {
+			VStack(spacing: 20) {
+				// Quick stats
+				LazyVGrid(
+					columns: [GridItem(.flexible()), GridItem(.flexible())],
+					spacing: 10
+				) {
+					StatCard(label: "Total Clips", value: "\(clipperViewModel.myClips.count)", accentColor: .cnTeal)
+					StatCard(label: "Total Views", value: totalClipViews.shortFormatted, accentColor: .cnAmber)
+				}
+				.padding(.horizontal, 20)
 
-                    // Clip list
-                    VStack(spacing: 12) {
-                        SectionHeader(title: "Recent Submissions")
-                            .padding(.horizontal, 20)
+				// Clip list
+				VStack(spacing: 12) {
+					SectionHeader(title: "Recent Submissions")
+						.padding(.horizontal, 20)
 
-                        if clipperViewModel.myClips.isEmpty {
-                            EmptyStateView(
-                                systemImage: "scissors",
-                                title: "No clips yet",
-                                subtitle: "Apply to a campaign and submit your first clip."
-                            )
-                        } else {
-                            LazyVStack(spacing: 10) {
-                                ForEach(clipperViewModel.myClips) { clip in
-                                    ClipRow(clip: clip)
-                                        .padding(.horizontal, 20)
-                                }
-                            }
-                        }
-                    }
-                }
-                .padding(.top, 16)
-                .padding(.bottom, 32)
-            }
-            .background(Color.cnSurface.ignoresSafeArea())
-            .navigationTitle("My Clips")
-            .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        isShowingSubmit = true
-                    } label: {
-                        Label("Submit Clip", systemImage: "plus")
-                            .labelStyle(.iconOnly)
-                            .foregroundColor(.cnTeal)
-                    }
-                }
-            }
-            .sheet(isPresented: $isShowingSubmit) {
-                SubmitClipView()
-            }
-        }
+					if clipperViewModel.myClips.isEmpty {
+						EmptyStateView(
+							systemImage: "scissors",
+							title: "No clips yet",
+							subtitle: "Apply to a campaign and submit your first clip."
+						)
+					} else {
+						LazyVStack(spacing: 10) {
+							ForEach(clipperViewModel.myClips) { clip in
+								ClipRow(clip: clip)
+									.padding(.horizontal, 20)
+							}
+						}
+					}
+				}
+			}
+			.padding(.top, 16)
+			.padding(.bottom, 32)
+		}
+		.background(Color.cnSurface.ignoresSafeArea())
+		.navigationTitle("My Clips")
+		.navigationBarTitleDisplayMode(.large)
+		.toolbar {
+			ToolbarItem(placement: .navigationBarTrailing) {
+				Button {
+					isShowingSubmit = true
+				} label: {
+					Label("Submit Clip", systemImage: "plus")
+						.labelStyle(.iconOnly)
+						.foregroundColor(.cnTeal)
+				}
+			}
+		}
+		.sheet(isPresented: $isShowingSubmit) {
+			SubmitClipView()
+		}
     }
 
     private var totalClipViews: Int {

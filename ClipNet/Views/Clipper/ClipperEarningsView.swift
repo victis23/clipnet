@@ -5,20 +5,18 @@ struct ClipperEarningsView: View {
 	@EnvironmentObject var campaignViewModel: CampaignViewModel
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 20) {
-                    earningsSummaryCard
-                    breakdownSection
-                    recentPayoutsSection
-                }
-                .padding(.top, 16)
-                .padding(.bottom, 40)
-            }
-            .background(Color.cnSurface.ignoresSafeArea())
-            .navigationTitle("Earnings")
-            .navigationBarTitleDisplayMode(.large)
-        }
+		ScrollView {
+			VStack(spacing: 20) {
+				earningsSummaryCard
+				breakdownSection
+				recentPayoutsSection
+			}
+			.padding(.top, 16)
+			.padding(.bottom, 40)
+		}
+		.background(Color.cnSurface.ignoresSafeArea())
+		.navigationTitle("Earnings")
+		.navigationBarTitleDisplayMode(.large)
     }
 
     // MARK: - Summary Card
